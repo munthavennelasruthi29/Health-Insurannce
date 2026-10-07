@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-Authorisation Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Health Insurance Claim Pre-Authorisation Tracker</h1>
+    <p>Log pre-auth requests, track approval status, and compute the eligible amount under room rent / ICU sub-limits.</p>
+  </header>
+
+  <main>
+    <!-- ============ FORM: LOG A NEW REQUEST ============ -->
+    <section class="card">
+      <h2>1. Log a Pre-Auth Request</h2>
+      <form id="claimForm">
+        <div class="grid">
+          <label>Hospital Name
+            <input type="text" id="hospitalName" required>
+          </label>
+          <label>Patient Name
+            <input type="text" id="patientName" required>
+          </label>
+          <label>Policy Number
+            <input type="text" id="policyNumber" required>
+          </label>
+          <label>Sum Insured (₹)
+            <input type="number" id="sumInsured" min="0" required>
+          </label>
+
+          <label>Admission Date
+            <input type="date" id="admissionDate" required>
+          </label>
+          <label>Discharge Date
+            <input type="date" id="dischargeDate" required>
+          </label>
+          <label>Policy Anniversary (MM-DD)
+            <input type="text" id="anniversary" placeholder="e.g. 04-01">
+          </label>
+          <label>Requested Amount (₹)
+            <input type="number" id="requestedAmount" min="0" required>
+          </label>
+
+          <label>Actual Room Rent / Day (₹)
+            <input type="number" id="actualRoomRent" min="0" required>
+          </label>
+          <label>Room Rent Cap (% of Sum Insured / Day)
+            <input type="number" id="roomCapPct" step="0.01" value="1" required>
+          </label>
+          <label>Actual ICU Rent / Day (₹)
+            <input type="number" id="actualIcuRent" min="0" value="0">
+          </label>
+          <label>ICU Cap (% of Sum Insured / Day)
+            <input type="number" id="icuCapPct" step="0.01" value="2">
+          </label>
+
+          <label>Other Charges Total (₹)<br><small>(doctor fees, medicines, tests, etc. — linked to room category)</small>
+            <input type="number" id="otherCharges" min="0" value="0">
+          </label>
+          <label>Fixed / Excluded Charges (₹)<br><small>(ambulance, pre &amp; post hospitalisation — not capped)</small>
+            <input type="number" id="fixedCharges" min="0" value="0">
+          </label>
+        </div>
+        <button type="submit">Log Claim</button>
+      </form>
+    </section>
+
+    <!-- ============ TABLE: TRACKER ============ -->
+    <section class="card">
+      <h2>2. Claims Tracker</h2>
+      <div class="table-wrap">
+        <table id="claimsTable">
+          <thead>
+            <tr>
+              <th>Patient</th><th>Hospital</th><th>Policy #</th>
+              <th>Stay</th><th>Requested (₹)</th><th>Eligible (₹)</th>
+              <th>Status</th><th>Details</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="emptyMsg" class="muted">No claims logged yet.</p>
+    </section>
+  </main>
+
+  <!-- Modal to show the eligibility breakdown -->
+  <div id="modalOverlay" class="overlay hidden">
+    <div class="modal">
+      <button id="closeModal" class="close">&times;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
