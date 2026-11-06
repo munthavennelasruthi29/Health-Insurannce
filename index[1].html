@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-Auth Claim Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#0e7c86" d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7z"/></svg>
+    </div>
+    <div>
+      <h1>Hospital Claim Assessment Report</h1>
+      <p>Pre-authorisation &bull; Eligible amount &bull; Receipt &bull; Previous year history</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ FORM ============ -->
+    <section class="card">
+      <h2>1. New assessment report</h2>
+      <p class="note">Fill every section below. Fields with a choice need one option ticked.</p>
+      <form id="claimForm">
+
+        <h3>Personal information</h3>
+        <div class="grid">
+          <label>Patient name
+            <input type="text" id="patient" required>
+          </label>
+          <label>Report date
+            <input type="date" id="reportDate">
+          </label>
+          <label>Hospital name
+            <input type="text" id="hospital" required>
+          </label>
+          <label>Phone number
+            <input type="tel" id="phone">
+          </label>
+        </div>
+
+        <h3>Insurance policy</h3>
+        <div class="grid">
+          <label>Insurance company / plan
+            <input type="text" id="insurer" placeholder="e.g. Star Health Gold" required>
+          </label>
+          <label>Sum insured (₹)
+            <input type="number" id="sumInsured" min="0" required>
+          </label>
+          <label>Policy start date
+            <input type="date" id="policyStart" required>
+          </label>
+          <label>Policy end date
+            <input type="date" id="policyEnd" required>
+          </label>
+        </div>
+
+        <h3>Type of treatment</h3>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="treatType" value="Injury" required> Injury</label>
+          <label class="choice"><input type="radio" name="treatType" value="Operation / surgery" required> Operation / surgery</label>
+          <label class="choice"><input type="radio" name="treatType" value="Illness" required> Illness / medical treatment</label>
+        </div>
+
+        <h3>Disease / body part</h3>
+        <div class="grid">
+          <label>Category
+            <select id="category" required>
+              <option value="">-- choose --</option>
+              <option>Heart problem</option>
+              <option>Leg injury / fracture</option>
+              <option>Surgery / operation</option>
+              <option>Cancer</option>
+              <option>Kidney</option>
+              <option>Maternity</option>
+              <option>Fever / infection</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>Diagnosis / procedure details
+            <input type="text" id="diagnosis" placeholder="e.g. Angioplasty">
+          </label>
+        </div>
+
+        <h3>Cause of injury / illness</h3>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="cause" value="Road accident" required> Road accident</label>
+          <label class="choice"><input type="radio" name="cause" value="Fall" required> Fall</label>
+          <label class="choice"><input type="radio" name="cause" value="Sports injury" required> Sports injury</label>
+          <label class="choice"><input type="radio" name="cause" value="Burns" required> Burns</label>
+          <label class="choice"><input type="radio" name="cause" value="Illness" required> Illness</label>
+          <label class="choice"><input type="radio" name="cause" value="Other" required> Other</label>
+        </div>
+
+        <h3>Severity</h3>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="severity" value="Minor" required> Minor</label>
+          <label class="choice"><input type="radio" name="severity" value="Major" required> Major</label>
+          <label class="choice"><input type="radio" name="severity" value="Critical" required> Critical</label>
+        </div>
+
+        <h3>Previous year's report (optional)</h3>
+        <div class="grid">
+          <label>Condition claimed last year
+            <input type="text" id="prevCondition" placeholder="e.g. Knee operation">
+          </label>
+          <label>Amount claimed last year (₹)
+            <input type="number" id="prevAmount" min="0" value="0">
+          </label>
+        </div>
+
+        <h3>Hospital stay</h3>
+        <div class="grid">
+          <label>Admission date
+            <input type="date" id="admit" required>
+          </label>
+          <label>Discharge date
+            <input type="date" id="discharge" required>
+          </label>
+          <label>Room type
+            <select id="roomType">
+              <option value="general">General ward</option>
+              <option value="private">Private room</option>
+            </select>
+          </label>
+          <label>Room rent charged per day (₹)
+            <input type="number" id="roomRate" min="0" value="0">
+          </label>
+          <label>Room rent limit per day in policy (₹)
+            <input type="number" id="roomLimit" min="0" value="0">
+          </label>
+          <label>Days in ICU
+            <input type="number" id="icuDays" min="0" value="0">
+          </label>
+          <label>ICU charge per day (₹)
+            <input type="number" id="icuRate" min="0" value="0">
+          </label>
+          <label>ICU limit per day in policy (₹)
+            <input type="number" id="icuLimit" min="0" value="0">
+          </label>
+        </div>
+
+        <h3>Other bill items (₹)</h3>
+        <div class="grid">
+          <label>Doctor / surgeon fees <input type="number" id="doctorFees" min="0" value="0"></label>
+          <label>Medicines <input type="number" id="medicines" min="0" value="0"></label>
+          <label>Tests and scans <input type="number" id="tests" min="0" value="0"></label>
+          <label>Operation theatre <input type="number" id="ot" min="0" value="0"></label>
+          <label>Other charges <input type="number" id="other" min="0" value="0"></label>
+        </div>
+
+        <h3>Receipt</h3>
+        <label>Upload hospital bill (image or PDF)
+          <input type="file" id="receipt" accept="image/*,.pdf">
+        </label>
+
+        <button type="submit">Calculate and save</button>
+      </form>
+    </section>
+
+    <!-- ============ SUMMARY ============ -->
+    <section class="card">
+      <h2>2. Summary by disease / treatment</h2>
+      <div id="summary" class="summary"></div>
+    </section>
+
+    <!-- ============ TABLE ============ -->
+    <section class="card">
+      <h2>3. All requests</h2>
+      <label>Filter by category
+        <select id="filter">
+          <option value="">All</option>
+        </select>
+      </label>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Patient name</th><th>Hospital name</th><th>Category</th><th>Policy</th>
+              <th>Total bill</th><th>Eligible claim</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ DETAIL POPUP ============ -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+      <button id="closeModal" class="close">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+/* ===== Hospital report theme: navy + teal on clean white ===== */
+:root {
+  --navy: #0b3c5d;
+  --teal: #0e7c86;
+  --teal-light: #e6f4f5;
+  --line: #c9d6df;
+  --text: #1f2d3a;
+  --muted: #5d6f7e;
+  --bg: #eef3f6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.45;
+}
+
+/* ---------- Header ---------- */
+header {
+  background: var(--navy);
+  color: white;
+  padding: 22px 20px 18px;
+  border-bottom: 6px solid var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  text-align: left;
+}
+.logo {
+  width: 52px; height: 52px; border-radius: 10px;
+  background: white; display: flex; align-items: center; justify-content: center;
+}
+.logo svg { width: 34px; height: 34px; }
+header h1 { margin: 0; font-size: 26px; letter-spacing: .3px; }
+header p { margin: 2px 0 0; opacity: .85; font-size: 14px; }
+
+main { max-width: 1150px; margin: 24px auto; padding: 0 12px; }
+
+/* ---------- Cards ---------- */
+.card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 26px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 6px rgba(11, 60, 93, .08);
+}
+h2 {
+  color: var(--navy);
+  margin: 0 0 6px;
+  font-size: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--teal);
+}
+.note { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+
+/* ---------- Numbered section headings ---------- */
+form { counter-reset: sec; }
+form h3 {
+  counter-increment: sec;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 28px 0 12px;
+  padding: 8px 12px;
+  background: var(--teal-light);
+  border-left: 5px solid var(--teal);
+  color: var(--navy);
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+}
+form h3::before {
+  content: counter(sec);
+  background: var(--teal);
+  color: white;
+  width: 24px; height: 24px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 13px; letter-spacing: 0;
+}
+
+/* ---------- Form fields ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px 18px;
+}
+
+label {
+  display: flex; flex-direction: column; gap: 5px;
+  font-size: 12px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .4px;
+}
+
+input, select {
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text);
+  background: #fbfdfe;
+}
+input:focus, select:focus {
+  outline: none; border-color: var(--teal); background: white;
+  box-shadow: 0 0 0 3px rgba(14, 124, 134, .18);
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+label.choice {
+  flex-direction: row; align-items: center; gap: 10px;
+  font-size: 14px; font-weight: 600; color: var(--text);
+  text-transform: none; letter-spacing: 0;
+  border: 1px solid var(--line); border-radius: 4px;
+  padding: 10px 12px; background: #fbfdfe; cursor: pointer;
+}
+label.choice:hover { border-color: var(--teal); background: var(--teal-light); }
+label.choice input { padding: 0; margin: 0; width: 16px; height: 16px; accent-color: var(--teal); }
+
+button {
+  background: var(--teal);
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 22px;
+}
+button:hover { background: #0a646c; }
+
+/* ---------- Summary ---------- */
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 14px; }
+.summary div {
+  background: white; border: 1px solid var(--line); border-top: 4px solid var(--teal);
+  padding: 14px; border-radius: 4px; color: var(--muted); font-size: 13px;
+}
+.summary strong { display: block; font-size: 22px; margin: 4px 0; color: var(--navy); }
+
+/* ---------- Table ---------- */
+.tablewrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+th, td { padding: 10px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { background: var(--navy); color: white; font-size: 13px; }
+tbody tr:nth-child(even) { background: #f6fafb; }
+tbody tr:hover { background: var(--teal-light); }
+small { color: var(--muted); }
+
+.badge { padding: 4px 10px; border-radius: 3px; font-size: 12px; font-weight: 700; color: white; }
+.Pending { background: #d98a00; }
+.Approved { background: #1b8a4b; }
+.Rejected { background: #c0392b; }
+
+.small-btn { padding: 6px 10px; font-size: 12px; margin: 2px; }
+
+/* ---------- Popup report ---------- */
+.modal {
+  position: fixed; inset: 0; background: rgba(11, 60, 93, .6);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 16px; overflow-y: auto;
+}
+.modal.hidden { display: none; }
+.modal-box {
+  background: white; max-width: 800px; width: 100%;
+  padding: 28px; border-radius: 6px; position: relative;
+}
+.modal-box h3 {
+  background: var(--navy); color: white; border: none; padding: 6px 10px;
+  margin: 22px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .6px;
+  display: block;
+}
+.modal-box h3::before { content: none; }
+.close { position: absolute; right: 10px; top: 4px; background: none; color: #333; font-size: 30px; margin: 0; padding: 4px 10px; }
+.close:hover { background: none; color: #c0392b; }
+
+.report-head {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+  border-bottom: 3px solid var(--teal); padding-bottom: 12px; margin-bottom: 4px;
+}
+.report-head h2 { border: none; padding: 0; margin: 0; font-size: 22px; }
+.report-head p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+.stamp {
+  border: 2px solid; padding: 4px 12px; font-weight: 800; letter-spacing: 1px;
+  text-transform: uppercase; font-size: 13px; margin-right: 34px;
+}
+.stamp.Approved { color: #1b8a4b; border-color: #1b8a4b; background: none; }
+.stamp.Rejected { color: #c0392b; border-color: #c0392b; background: none; }
+.stamp.Pending { color: #d98a00; border-color: #d98a00; background: none; }
+
+.kv { margin-top: 0; }
+.kv th { width: 22%; background: var(--teal-light); color: var(--navy); font-size: 13px; }
+.kv td { width: 28%; }
+
+.result {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  margin-top: 14px; padding: 14px; border: 2px solid var(--teal); background: var(--teal-light);
+}
+.result div { font-size: 13px; color: var(--muted); }
+.result strong { display: block; font-size: 22px; color: var(--navy); }
+
+.warn { background: #fff4d6; border-left: 4px solid #d98a00; padding: 8px 10px; margin: 8px 0; font-size: 13px; }
+.receipt-img { max-width: 100%; border: 1px solid var(--line); margin-top: 8px; }
+.breakdown td:last-child, .breakdown th:last-child { text-align: right; }
+.sign { display: flex; justify-content: space-between; margin-top: 36px; gap: 20px; }
+.sign div { flex: 1; border-top: 1px solid var(--text); padding-top: 4px; font-size: 12px; color: var(--muted); }
+.print-btn { margin: 14px 8px 0 0; }
+
+/* ---------- Printing: only the open report ---------- */
+@media print {
+  header, main, .close, .no-print { display: none !important; }
+  body { background: white; }
+  .modal { position: static; background: none; padding: 0; display: block; }
+  .modal-box { max-width: none; box-shadow: none; padding: 0; }
+  th, .result, .kv th, .modal-box h3 { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+@media (max-width: 600px) {
+  header { text-align: center; }
+  .kv th, .kv td { display: block; width: 100%; }
+}
